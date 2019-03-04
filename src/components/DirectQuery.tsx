@@ -7,7 +7,7 @@ interface Props {}
 export const DirectQuery: React.FC<Props> = () => {
   const { data, loading } = useQuery(
     gql`
-      {
+      query SimplePokemon {
         count @client
         pokemon(name: "Pikachu") {
           maxHP

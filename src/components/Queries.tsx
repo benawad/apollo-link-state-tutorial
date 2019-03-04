@@ -7,7 +7,7 @@ interface Props {}
 export const Queries: React.FC<Props> = () => {
   const q1 = useQuery(
     gql`
-      {
+      query GetCount {
         getCount @client
       }
     `
@@ -15,7 +15,7 @@ export const Queries: React.FC<Props> = () => {
 
   const q2 = useQuery(
     gql`
-      {
+      query Pokemon {
         pokemon(name: "Pikachu") {
           name
           maxHP

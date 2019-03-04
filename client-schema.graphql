@@ -1,0 +1,30 @@
+type Todo {
+  id: ID!
+  text: String
+  complete: Boolean
+}
+type Query {
+  getCount: Int
+  count: Int
+  todos: Todo
+}
+type Mutation {
+  setCount(count: Int): Int
+  increment: Int
+  toggleTodoComplete(id: ID!): Boolean
+}
+type Name {
+  title: String
+  first: String
+  last: String
+}
+type Person {
+  gender: String
+  name: Name
+}
+type Pokemon {
+  isMaxHPOdd: Boolean!
+  isMaxHPDivisibleByCount: Boolean!
+  randomPerson: Person
+  isFavorite: Boolean
+}

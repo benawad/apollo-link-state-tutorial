@@ -1,8 +1,9 @@
-import ApolloClient, { gql } from "apollo-boost";
+import ApolloClient from "apollo-boost";
 import React from "react";
 import { ApolloProvider } from "react-apollo-hooks";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { resolvers } from "./resolvers";
 import * as serviceWorker from "./serviceWorker";
 
 /*
@@ -14,106 +15,13 @@ import * as serviceWorker from "./serviceWorker";
 4. Query cache
 5. Use client cache values as variables
 6. Write fragment
+7. Typescript
 
 */
 
 const client = new ApolloClient({
   uri: "https://graphql-pokemon.now.sh",
-  resolvers: {
-    Mutation: {
-      setCount: (parent, { count }, { cache }, info) => {
-        cache.writeData({
-          data: {
-            count
-          }
-        });
-      },
-      increment: (parent, args, { cache }) => {
-        let data;
-        try {
-          // if query does not exist in the cache it will throw an error
-          data = cache.readQuery({
-            query: gql`
-              {
-                count @client
-              }
-            `
-          });
-        } catch {}
-
-        cache.writeData({
-          data: {
-            count: data ? data.count + 1 : 1
-          }
-        });
-      },
-      toggleTodoComplete: (parent, { id }, { cache, getCacheKey }) => {
-        const cacheId = getCacheKey({ __typename: "Todo", id });
-        const fragment = gql`
-          fragment completeTodo on Todo {
-            complete
-          }
-        `;
-        const todo = cache.readFragment({ fragment, id: cacheId });
-        cache.writeFragment({
-          fragment,
-          id: cacheId,
-          data: {
-            ...todo,
-            complete: !todo.complete
-          }
-        });
-        return null;
-      }
-    },
-    Query: {
-      getCount: (parent, args, { cache }) => {
-        const { count } = cache.readQuery({
-          query: gql`
-            {
-              count @client
-            }
-          `
-        });
-
-        return count;
-      }
-    },
-    Pokemon: {
-      isMaxHPOdd: parent => {
-        return parent.maxHP % 2 !== 0;
-      },
-      isMaxHPDivisibleByCount: (parent, args, { cache }) => {
-        const { count } = cache.readQuery({
-          query: gql`
-            {
-              count @client
-            }
-          `
-        });
-
-        return parent.maxHP % count === 0;
-      },
-      randomPerson: async parent => {
-        const response = await fetch(
-          `https://randomuser.me/api?seed=${parent.maxHP}`
-        );
-        const json = await response.json();
-        const [data] = json.results;
-        return {
-          __typename: "Person",
-          ...data,
-          name: {
-            __typename: "Name",
-            ...data.name
-          }
-        };
-      },
-      isFavorite(parent) {
-        return localStorage.getItem("favoritePokemon") === parent.name;
-      }
-    }
-  }
+  resolvers: resolvers as any
 });
 
 // import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";

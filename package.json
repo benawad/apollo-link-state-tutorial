@@ -9,6 +9,7 @@
     "@types/react-dom": "16.8.2",
     "apollo-boost": "^0.3.1",
     "graphql": "^14.1.1",
+    "graphql-code-generator": "^0.18.0",
     "react": "^16.8.3",
     "react-apollo-hooks": "^0.4.3",
     "react-dom": "^16.8.3",
@@ -19,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gen": "gql-gen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,5 +31,13 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/graphql": "^14.0.7",
+    "graphql-codegen-typescript-client": "0.18.0",
+    "graphql-codegen-typescript-common": "0.18.0",
+    "graphql-codegen-typescript-react-apollo": "^0.18.0",
+    "graphql-codegen-typescript-resolvers": "0.18.0",
+    "graphql-codegen-typescript-server": "^0.18.0"
+  }
 }

@@ -7,7 +7,7 @@ interface Props {}
 export const Todos: React.FC<Props> = () => {
   const { data } = useQuery(
     gql`
-      {
+      query Todos {
         todos @client {
           id
           text
