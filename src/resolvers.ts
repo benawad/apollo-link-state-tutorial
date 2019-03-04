@@ -26,7 +26,7 @@ export const resolvers = {
       let data;
       try {
         // if query does not exist in the cache it will throw an error
-        data = cache.readQuery({
+        data = cache.readQuery<any>({
           query: countQuery
         });
       } catch {}
@@ -46,7 +46,7 @@ export const resolvers = {
           complete
         }
       `;
-      const todo = cache.readFragment({ fragment, id: cacheId });
+      const todo = cache.readFragment<any>({ fragment, id: cacheId });
       cache.writeFragment({
         fragment,
         id: cacheId,
@@ -60,7 +60,7 @@ export const resolvers = {
   },
   Query: {
     getCount: (parent, args, { cache }) => {
-      const { count } = cache.readQuery({
+      const { count } = cache.readQuery<any>({
         query: countQuery
       });
 
@@ -72,7 +72,7 @@ export const resolvers = {
       return parent.maxHP! % 2 !== 0;
     },
     isMaxHPDivisibleByCount: (parent, args, { cache }) => {
-      const { count } = cache.readQuery({
+      const { count } = cache.readQuery<any>({
         query: countQuery
       });
 
