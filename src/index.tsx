@@ -13,9 +13,10 @@ import * as serviceWorker from "./serviceWorker";
 2. Direct writes
 3. Mutation resolvers
 4. Query cache
-5. Use client cache values as variables
-6. Write fragment
-7. Typescript
+5. Initialize cache
+6. Use client cache values as variables
+7. Write fragment
+8. Typescript
 
 */
 
