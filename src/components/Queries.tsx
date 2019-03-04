@@ -13,6 +13,7 @@ export const Queries: React.FC<Props> = () => {
     `
   );
 
+  // isMaxHPDivisibleByCount is not recomputed if the count changes
   const q2 = useQuery(
     gql`
       query Pokemon {
@@ -44,7 +45,6 @@ export const Queries: React.FC<Props> = () => {
       </div>
       <div>
         isMaxHPDivisibleByCount:
-        {/* this is not recomputed if the count changes */}
         {q2.data.pokemon && `${q2.data.pokemon.isMaxHPDivisibleByCount}`}
       </div>
       <div>

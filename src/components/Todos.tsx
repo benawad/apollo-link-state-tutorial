@@ -22,7 +22,7 @@ export const Todos: React.FC<Props> = () => {
       toggleTodoComplete(id: $id) @client
     }
   `);
-  console.log(data);
+
   return (
     <div>
       <h1>todo</h1>
