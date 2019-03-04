@@ -15,7 +15,17 @@ import * as serviceWorker from "./serviceWorker";
 
 const client = new ApolloClient({
   uri: "https://graphql-pokemon.now.sh",
-  resolvers: {}
+  resolvers: {
+    Mutation: {
+      setCount: (parent, { count }, { cache }, info) => {
+        cache.writeData({
+          data: {
+            count
+          }
+        });
+      }
+    }
+  }
 });
 
 // import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
