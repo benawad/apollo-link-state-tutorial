@@ -5,6 +5,12 @@ import { useMutation } from "react-apollo-hooks";
 interface Props {}
 
 export const Mutations: React.FC<Props> = () => {
+  const increment = useMutation(gql`
+    mutation Increment {
+      increment @client
+    }
+  `);
+
   const setCount = useMutation(gql`
     mutation SetCount($count: Int!) {
       setCount(count: $count) @client
@@ -14,6 +20,8 @@ export const Mutations: React.FC<Props> = () => {
   return (
     <div>
       <h1>Mutations</h1>
+
+      <button onClick={() => increment()}>increment</button>
 
       <button
         onClick={() =>

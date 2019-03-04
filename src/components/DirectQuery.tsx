@@ -4,24 +4,28 @@ import { useQuery } from "react-apollo-hooks";
 
 interface Props {}
 
-export const ClientQuery: React.FC<Props> = () => {
+export const DirectQuery: React.FC<Props> = () => {
   const { data, loading } = useQuery(
     gql`
       {
         count @client
+        pokemon(name: "Pikachu") {
+          maxHP
+        }
       }
     `
   );
 
+  // true until slowest query is fetched
   if (loading) {
-    console.log("loading!");
     return <div>...loading</div>;
   }
 
   return (
     <div>
       <h1>Client Query</h1>
-      <div>count {data && data.count}</div>
+      <div>count {data.count}</div>
+      <div>Pikachu maxHP: {data.pokemon && data.pokemon.maxHP}</div>
     </div>
   );
 };
